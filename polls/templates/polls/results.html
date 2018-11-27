@@ -1,0 +1,35 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="jumbotron">
+            <h1 class="display-4">Question</h1>
+        </div>
+        <h1 align="center">{{ error_message }}</h1>
+    {% else %}
+        <div class="jumbotron">
+            <h1 class="display-4">Results for {{ u_question }} Question</h1>
+        </div>
+
+        <div class="container" style="width:600px;">
+            <table class="table table-hover sortable">
+                <thead class="thead-dark" align="left">
+                    <tr>
+                        <th scope="col">Option</th>
+                        <th scope="col">Votes</th>
+                    </tr>
+                </thead>
+                <tbody align="left">
+                    {% for choice in choices %}
+                        <tr>
+                            <td>{{ choice.choice_text }} </td>
+                            <td>{{ choice.votes }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <a href="{% url 'polls:options' question_id %}"class="btn btn-dark">Vote Again</a>
+        </div>
+    {% endif %}
+{% endblock %}

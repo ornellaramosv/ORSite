@@ -1,0 +1,32 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="jumbotron">
+            <h1 class="display-4">Question</h1>
+        </div>
+        <h1 align="center">{{ error_message }}</h1>
+    {% else %}
+        <div class="jumbotron">
+            <h1 class="display-4">Question - {{ u_question }}</h1>
+        </div>
+
+        <div class="container" style="width:600px;">
+            <form action="{% url 'polls:vote' question_id %}" method="post">
+            {% csrf_token %}
+            <div class="d-block my-3">
+                {% for choice in choices %}
+                <div class="custom-control custom-radio">
+                    <input id="id_{{ choice.id }}" name="choice" type="radio" class="custom-control-input" value="{{ choice.id }}">
+                    <label class="custom-control-label" for="id_{{ choice.id }}">{{ choice.choice_text }}  </label>
+                </div>
+                {% endfor %}
+            </div>
+            <hr class="mb-4">
+            <input type="submit" value="Vote" class="btn btn-dark">
+
+            <a href="{% url 'polls:question' topic_id %}"class="btn btn-dark">Go Back</a>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

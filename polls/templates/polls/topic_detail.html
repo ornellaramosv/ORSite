@@ -1,0 +1,14 @@
+{% extends 'polls/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Topics</h1>
+</div>
+<div class="container" style="width:600px;">
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="save btn btn-dark">Save</button>
+    </form>
+</div>
+{% endblock %}

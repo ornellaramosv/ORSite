@@ -1,0 +1,50 @@
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>PollS</title>
+    </head>
+    <body>
+        <!--Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <img src="{% static 'polls/images/ballot.ico' %}" width="50" height="50">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'polls:index' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'polls:topics' %}">Topics</a>
+                        </div>
+                    </li>
+                </ul>
+                <a href="{% url 'manage:index' %}" class="btn btn-outline-primary" role="button" aria-pressed="true">Log In</a>
+            </div>
+
+        </nav>
+
+        <!--Cover -->
+        {% block content %}
+        {% endblock %}
+
+        <hr class="mb-4">
+        <!--Footer-->
+        <footer class="container" align="center">
+            <p>&copy; Ornella Ramos 2018</p>
+        </footer>
+    </body>
+</html>

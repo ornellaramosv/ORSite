@@ -1,0 +1,36 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-4">Questions</h1>
+    </div>
+
+    <div class="container" align="center">
+    {% if questions %}
+    <table class="table table-hover sortable">
+      <thead class="thead-dark" align="left">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Question</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody align="left">
+        {% for question in questions %}
+            <tr>
+              <th scope="row">{{ question.id }}</th>
+              <td>{{ question.question_text }}</td>
+              <td><a href="{% url 'polls:options' question.id %}" class="btn btn-dark">Go</a></td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+        <h1>There no questions for this topic</h1>
+    {% endif %}
+    </div>
+    <hr class="mb-4">
+    <div class="container" aling="left">
+        <a href="{% url 'polls:topics' %}"class="btn btn-dark" >Go Back</a>
+    </div>
+{% endblock %}
