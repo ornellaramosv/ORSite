@@ -122,13 +122,13 @@ def new_topic(request):
             topic = form.save(commit=False)
             topic.cre_date = timezone.now()
             topic.save()
-            return redirect('topic_detail', pk=topic.pk)
+            return redirect('polls:topic_detail', topic_id=topic.pk)
     else:
         form = CreateTopic()
         return render(request, 'polls/new_topic.html', {'form': form})
 
 
-def edit_topic(request, topic_id):
+def topic_detail(request, topic_id):
     topic = get_object_or_404(Topic, pk=topic_id)
     if request.method == "POST":
         form = CreateTopic(request.POST, instance=topic)
@@ -136,7 +136,7 @@ def edit_topic(request, topic_id):
             topic = form.save(commit=False)
             topic.cre_date = timezone.now()
             topic.save()
-            return redirect('topic_detail', pk=topic.pk)
+            return redirect('polls:topic_detail', topic_id=topic.pk)
     else:
         form = CreateTopic(instance=topic)
         return render(request, 'polls/new_topic.html', {'form': form})
