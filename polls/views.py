@@ -6,6 +6,7 @@ from django.db.models import F
 from .forms import CreateTopic
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -14,9 +15,9 @@ def index(request):
     return render(request, 'polls/index.html')
 
 
-def all_topics(request):
+def act_topics(request):
     try:
-        topic = Topic.objects.all()
+        topic = Topic.objects.filter(topic_act=True).all()
     except Topic.DoesNotExist:
         return render(request, 'polls/topics.html', {
             'error_message': "There no topics."
@@ -24,6 +25,55 @@ def all_topics(request):
     return render(request, 'polls/topics.html', {
         'topics': topic
     })
+
+
+@login_required
+def no_act_topics(request):
+    try:
+        topic = Topic.objects.filter(topic_act=False).all()
+    except Topic.DoesNotExist:
+        return render(request, 'polls/topics.html', {
+            'error_message': "There no topics."
+        })
+    return render(request, 'polls/topics.html', {
+        'topics': topic
+    })
+
+
+@login_required
+def topic_new(request):
+    if request.method == "POST":
+        form = CreateTopic(request.POST)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.cre_date = timezone.now()
+            topic.save()
+            return redirect('polls:topic_detail', topic_id=topic.pk)
+    else:
+        form = CreateTopic()
+        return render(request, 'polls/new_topic.html', {'form': form})
+
+
+@login_required
+def topic_edit(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    if request.method == "POST":
+        form = CreateTopic(request.POST, instance=topic)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.upd_date = timezone.now()
+            topic.save()
+            return redirect('polls:topic_detail', topic_id=topic.pk)
+    else:
+        form = CreateTopic(instance=topic)
+        return render(request, 'polls/new_topic.html', {'form': form})
+
+
+@login_required
+def topic_remove(request, topic_id):
+    topic = get_object_or_404(Topic, pk=topic_id)
+    topic.delete()
+    return redirect('polls:topics')
 
 
 def all_questions(request, topic_id):
@@ -46,7 +96,6 @@ def all_options(request, question_id):
         q = q_choice[0]['question']
         question_t = Question.objects.filter(id=q).values('question_text')
         question_text = question_t[0]['question_text']
-
         idtopic = Question.objects.filter(id=q).values('topic_id').distinct()
         id_topic = idtopic[0]['topic_id']
 
@@ -113,30 +162,3 @@ def vote(request, question_id):
         selected_option.votes = F('votes') + 1
         selected_option.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
-
-
-def new_topic(request):
-    if request.method == "POST":
-        form = CreateTopic(request.POST)
-        if form.is_valid():
-            topic = form.save(commit=False)
-            topic.cre_date = timezone.now()
-            topic.save()
-            return redirect('polls:topic_detail', topic_id=topic.pk)
-    else:
-        form = CreateTopic()
-        return render(request, 'polls/new_topic.html', {'form': form})
-
-
-def topic_detail(request, topic_id):
-    topic = get_object_or_404(Topic, pk=topic_id)
-    if request.method == "POST":
-        form = CreateTopic(request.POST, instance=topic)
-        if form.is_valid():
-            topic = form.save(commit=False)
-            topic.cre_date = timezone.now()
-            topic.save()
-            return redirect('polls:topic_detail', topic_id=topic.pk)
-    else:
-        form = CreateTopic(instance=topic)
-        return render(request, 'polls/new_topic.html', {'form': form})

@@ -6,8 +6,9 @@ from django.utils import timezone
 
 class Topic(models.Model):
     topic_text = models.CharField(max_length=100)
-    pub_date = models.DateTimeField('date published')
     cre_date = models.DateTimeField('date created', default=timezone.now)
+    upd_date = models.DateTimeField(default=timezone.now)
+    topic_act = models.BooleanField('active', default=False)
 
 
 class Question(models.Model):

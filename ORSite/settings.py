@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls.apps.PollsConfig',
-    'manage.apps.ManageConfig',
     'bootstrap_datepicker_plus',
     'bootstrap4',
 ]
@@ -124,13 +123,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [STATIC_DIR,]
+STATICFILES_DIRS = [STATIC_DIR]
 
 MEDIA_ROOT = MEDIA_DIR
 
 MEDIA_URL = '/media/'
 
-LOGIN_URL = '/manage/user_login/'
+LOGIN_REDIRECT_URL = '/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

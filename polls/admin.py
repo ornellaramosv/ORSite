@@ -17,11 +17,10 @@ class TopicAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,          {'fields': ['topic_text']}),
         ('Date Created', {'fields': ['cre_date'], 'classes': ['collapse']}),
-        ('Date Published', {'fields': ['pub_date'], 'classes': ['collapse']}),
     ]
     inlines = [QuestionInline]
-    list_display = ('topic_text', 'pub_date', 'cre_date')
-    list_filter = ['pub_date']
+    list_display = ('topic_text', 'cre_date')
+    list_filter = ['cre_date']
     search_fields = ['topic_text']
 
 
