@@ -17,10 +17,10 @@ After having done the tutorial, I decided to do it again by adding a new table i
 # New Features 2.0
 
   - Sign Up (Adding the other values: First name, last name and email)
-
+  - Reset password
+ 
 # What's coming
 
   - Sessions manage
-  - Resset password
 
 **The important thing is to learn**
