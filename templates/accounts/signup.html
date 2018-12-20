@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
 {% block content %}
-<body class="body_signup">
-  <form method="post" class="form-signup">
-    {% csrf_token %}
-    {% bootstrap_form form  %}
-    <button type="submit" class="save btn btn-dark">Sign up</button>
-  </form>
-</body>
+    <body class="body_signup">
+        <form method="post" class="form-signup">
+            {% csrf_token %}
+            {% bootstrap_form form  %}
+            <button type="submit" class="save btn btn-dark">Sign up</button>
+        </form>
+    </body>
 {% endblock %}

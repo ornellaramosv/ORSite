@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+<body class="body_signup">
+  <form method="post" class="form-signup">
+    {% csrf_token %}
+    {% bootstrap_form user_form  %}
+    {% bootstrap_form profile_form  %}
+    <button type="submit" class="save btn btn-dark">Update</button>
+  </form>
+</body>
+{% endblock %}

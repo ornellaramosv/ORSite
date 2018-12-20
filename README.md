@@ -18,6 +18,7 @@ After having done the tutorial, I decided to do it again by adding a new table i
 
   - Sign Up (Adding the other values: First name, last name and email)
   - Reset password
+  - Extending User Model Using a Custom Model Extending AbstractUser
  
 # What's coming
 

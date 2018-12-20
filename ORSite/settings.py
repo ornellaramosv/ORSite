@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.conf import settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -142,3 +143,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+AUTH_USER_MODEL = 'accounts.User'
+
